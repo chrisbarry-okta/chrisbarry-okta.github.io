@@ -26,7 +26,15 @@
       redirectUri: 'https://cbarry.oktapreview.com/app/UserHome',
       idps: [
         {type: 'FACEBOOK', id: '0oab5f3vj3xykDIx50h7'}
-      ]
+      ],
+      authParams: {
+        responseType: 'id_token',                               // By only specifying the id_token, we get the fat (complete) version
+        responseMode: 'okta_post_message',
+        scopes: [                                               // TODO - Change these depending on your needs
+                'openid',
+                'profile'
+        ]
+      }
     });
 
     oktaSignIn.renderEl(
