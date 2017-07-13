@@ -25,7 +25,8 @@ var signIn = new OktaSignIn({
   authParams: {
     responseType: 'id_token',
     // `display: page` will initiate the OAuth2 page redirect flow
-    display: 'page'
+    display: 'page',
+    responseMode: 'fragment'
   },
   idps: [
     {
