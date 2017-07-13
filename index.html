@@ -43,6 +43,7 @@ if (!signIn.token.hasTokensInUrl()) {
     function success(res) {
       signIn.token.parseTokensFromUrl();
       signIn.tokenManager.add('my_id_token', res);
+      res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
     },
     function error(err) {
       alert(err);
