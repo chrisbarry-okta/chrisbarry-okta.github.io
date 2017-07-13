@@ -39,10 +39,16 @@ var signIn = new OktaSignIn({
 // The user has just landed on our login form, and has not yet authenticated
 // with a Social Auth IDP.
   
-  if (signIn.token.hasTokensInUrl()) { 
-      signIn.token.parseTokensFromUrl();
-      signIn.tokenManager.add('my_id_token', res);
-      res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
+  if (signIn.token.hasTokensInUrl()) {
+    signIn.token.parseTokensFromUrl(
+      function success(res) {
+        signIn.tokenManager.add('my_id_token', res);
+        res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
+      },
+      function error(err) {
+        alert(err);
+      }
+    );
   }
   signIn.renderEl(
     {el: '#okta-login-container'},
