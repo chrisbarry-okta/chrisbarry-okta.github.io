@@ -38,7 +38,7 @@ var signIn = new OktaSignIn({
 
 // The user has just landed on our login form, and has not yet authenticated
 // with a Social Auth IDP.
-if (!signIn.token.hasTokensInUrl()) {
+
   signIn.renderEl(
     {el: '#okta-login-container'},
     function success(res) {
@@ -49,9 +49,7 @@ if (!signIn.token.hasTokensInUrl()) {
     function error(err) {
       alert(err);
     });
-} else {
-  alert('error');
-}
+
   </script>
 </body>
 </html>
