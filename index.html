@@ -26,7 +26,7 @@ var signIn = new OktaSignIn({
     responseType: 'id_token',
     // `display: page` will initiate the OAuth2 page redirect flow
     display: 'page',
-    responseMode: 'fragment'
+    // responseMode: 'fragment'
   },
   idps: [
     {
@@ -38,12 +38,12 @@ var signIn = new OktaSignIn({
 
 // The user has just landed on our login form, and has not yet authenticated
 // with a Social Auth IDP.
-
-if (signIn.token.hasTokensInUrl()) { 
+  
+  if (signIn.token.hasTokensInUrl()) { 
       signIn.token.parseTokensFromUrl();
       signIn.tokenManager.add('my_id_token', res);
       res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
-}
+  }
   signIn.renderEl(
     {el: '#okta-login-container'},
     function success(res) {
