@@ -49,17 +49,17 @@
           alert(err);
         }
       );
-    } 
-    
-    signIn.renderEl(
-      {el: '#okta-login-container'},
-      function success(res) {
-        alert('Success');
-      },
-      function error(err) {
-        alert(err);
-      }
-    );
+    } else {
+      signIn.renderEl(
+        {el: '#okta-login-container'},
+        function success(res) {
+          alert('Success');
+        },
+        function error(err) {
+          alert(err);
+        }
+      );
+    }
 
   </script>
 </body>
