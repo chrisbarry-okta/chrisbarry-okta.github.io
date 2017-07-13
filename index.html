@@ -18,34 +18,41 @@
   <!-- Script to init the widget -->
 
   <script>
-    var orgUrl = 'https://cbarry.oktapreview.com';
-    // redirectUri: 'https://chrisbarry-okta.github.io',
-    var oktaSignIn = new OktaSignIn({
-      baseUrl: orgUrl,
-      clientId: '0oab5zg1ti2fxTenY0h7',
-      redirectUri: 'https://chrisbarry-okta.github.io',
-      idps: [
-        {type: 'FACEBOOK', id: '0oab5f3vj3xykDIx50h7'}
-      ],
-      authParams: {
-        responseType: 'id_token',
-        display: 'page'
-      },      
-    });
-
-    if (!oktaSignIn.token.hasTokensInUrl()) {
-      oktaSignIn.renderEl({el: '#okta-login-container'});
-    } else {
-      oktaSignIn.token.parseTokensFromUrl(
-        function success(res) {
-          oktaSignIn.tokenManager.add('my_id_token', res);
-          res.session.setCookieAndRedirect('https://cbarry.oktapreview.com/app/UserHome');
-        },
-        function error(err) {
-          alert(err);
-        }
-      );
+var signIn = new OktaSignIn({
+  baseUrl: 'https://cbarry.oktapreview.com',
+  clientId: '0oab5zg1ti2fxTenY0h7',
+  redirectUri: 'https://chrisbarry-okta.github.io',
+  authParams: {
+    responseType: 'id_token',
+    // `display: page` will initiate the OAuth2 page redirect flow
+    display: 'page'
+  },
+  idps: [
+    {
+      type: 'FACEBOOK',
+      id: '0oab5f3vj3xykDIx50h7'
     }
+  ]
+});
+
+// The user has just landed on our login form, and has not yet authenticated
+// with a Social Auth IDP.
+if (!signIn.token.hasTokensInUrl()) {
+  signIn.renderEl({el: '#osw-container'});
+}
+
+// The user has redirected back after authenticating and has their access or
+// ID Token in the URL.
+else {
+  signIn.token.parseTokensFromUrl(
+    function success(res) {
+      signIn.tokenManager.add('my_id_token', res);
+    },
+    function error(err) {
+      alert(err);
+    }
+  );
+}
   </script>
 </body>
 </html>
