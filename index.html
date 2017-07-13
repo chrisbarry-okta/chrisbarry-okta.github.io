@@ -23,32 +23,33 @@
     var oktaSignIn = new OktaSignIn({
       baseUrl: orgUrl,
       clientId: '0oab5zg1ti2fxTenY0h7',
-      //redirectUri: 'https://cbarry.oktapreview.com/app/UserHome',
+      redirectUri: 'https://chrisbarry-okta.github.io',
       idps: [
         {type: 'FACEBOOK', id: '0oab5f3vj3xykDIx50h7'}
       ],
-      /*
       authParams: {
-        responseType: 'id_token',                               // By only specifying the id_token, we get the fat (complete) version
-        responseMode: 'fragment',
-        display: 'page',
-        scopes: [                                               // TODO - Change these depending on your needs
-                'openid',
-                'profile'
-        ]
-      }*/
+        responseType: 'id_token',
+        display: 'page'
+      },      
     });
 
-    oktaSignIn.renderEl(
-      { el: '#okta-login-container' },
-      function (res) {
-        if (res.status === 'SUCCESS') { 
-          alert('Success!');
-          res.session.setCookieAndRedirect(orgUrl + '/app/UserHome'); 
-        } else {
-          alert('Something other than success.');
-        }
+    if (!oktaSignIn.token.hasTokensInUrl()) {
+      oktaSignIn.renderEl({el: '#okta-login-container'});
+    }
+
+    // The user has redirected back after authenticating and has their access or
+    // ID Token in the URL.
+    else {
+      oktaSignIn.token.parseTokensFromUrl(
+        function success(res) {
+          oktaSignIn.tokenManager.add('my_id_token', res);
+          res.session.setCookieAndRedirect('https://cbarry.oktapreview.com/app/UserHome');
+        },
+        function error(err) {
+        alert('error!');
       }
+    );
+}
     );
   </script>
 </body>
