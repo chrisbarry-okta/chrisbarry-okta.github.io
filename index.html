@@ -18,48 +18,48 @@
   <!-- Script to init the widget -->
 
   <script>
-var signIn = new OktaSignIn({
-  baseUrl: 'https://cbarry.oktapreview.com',
-  clientId: '0oab5zg1ti2fxTenY0h7',
-  redirectUri: 'https://chrisbarry-okta.github.io',
-  authParams: {
-    responseType: 'id_token',
-    // `display: page` will initiate the OAuth2 page redirect flow
-    display: 'page',
-    // responseMode: 'fragment'
-  },
-  idps: [
-    {
-      type: 'FACEBOOK',
-      id: '0oab5f3vj3xykDIx50h7'
-    }
-  ]
-});
+    if (signIn.token.hasTokensInUrl()) {
+      signIn.token.parseTokensFromUrl(
+        function success(res) {
+          signIn.tokenManager.add('my_id_token', res);
+          //res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
+          //alert('success: ' + res.idToken.toString());
+          location.href = 'https://cbarry.oktapreview.com/app/UserHome';
+        },
+        function error(err) {
+          alert(err);
+        }
+      );
+    }  
+    
+    var signIn = new OktaSignIn({
+      baseUrl: 'https://cbarry.oktapreview.com',
+      clientId: '0oab5zg1ti2fxTenY0h7',
+      redirectUri: 'https://chrisbarry-okta.github.io',
+      authParams: {
+        responseType: 'id_token',
+        // `display: page` will initiate the OAuth2 page redirect flow
+        display: 'page',
+        // responseMode: 'fragment'
+      },
+      idps: [
+        {
+          type: 'FACEBOOK',
+          id: '0oab5f3vj3xykDIx50h7'
+        }
+      ]
+    });
+ 
 
-// The user has just landed on our login form, and has not yet authenticated
-// with a Social Auth IDP.
-  
-  if (signIn.token.hasTokensInUrl()) {
-    signIn.token.parseTokensFromUrl(
+    signIn.renderEl(
+      {el: '#okta-login-container'},
       function success(res) {
-        signIn.tokenManager.add('my_id_token', res);
-        //res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
-        //alert('success: ' + res.idToken.toString());
-        location.href = 'https://cbarry.oktapreview.com/app/UserHome';
+        alert('Success');
       },
       function error(err) {
         alert(err);
       }
     );
-  }
-  signIn.renderEl(
-    {el: '#okta-login-container'},
-    function success(res) {
-      alert('Success');
-    },
-    function error(err) {
-      alert(err);
-    });
 
   </script>
 </body>
