@@ -16,16 +16,13 @@
   <div id="okta-login-container"></div>
 
   <!-- Script to init the widget -->
+
   <script>
     var orgUrl = 'https://cbarry.oktapreview.com';
+    // redirectUri: 'https://chrisbarry-okta.github.io',
     var oktaSignIn = new OktaSignIn({
       baseUrl: orgUrl,
       clientId: '0oab5zg1ti2fxTenY0h7',
-      redirectUri: 'https://chrisbarry-okta.github.io',
-      authParams: {
-        display: 'page',
-        responseMode: 'fragment'
-      },
       idps: [
         {type: 'FACEBOOK', id: '0oab5f3vj3xykDIx50h7'}
       ]
