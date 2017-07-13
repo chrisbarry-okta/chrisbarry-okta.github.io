@@ -44,7 +44,7 @@ var signIn = new OktaSignIn({
       function success(res) {
         signIn.tokenManager.add('my_id_token', res);
         //res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
-        alert('success');
+        alert('success: ' + res.idToken.toString());
       },
       function error(err) {
         alert(err);
