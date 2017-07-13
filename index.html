@@ -38,20 +38,17 @@ var signIn = new OktaSignIn({
 // The user has just landed on our login form, and has not yet authenticated
 // with a Social Auth IDP.
 if (!signIn.token.hasTokensInUrl()) {
-  signIn.renderEl({el: '#okta-login-container'});
-}
-
-// The user has redirected back after authenticating and has their access or
-// ID Token in the URL.
-else {
-  signIn.token.parseTokensFromUrl(
+  signIn.renderEl(
+    {el: '#okta-login-container'},
     function success(res) {
+      signIn.token.parseTokensFromUrl();
       signIn.tokenManager.add('my_id_token', res);
     },
     function error(err) {
       alert(err);
-    }
-  );
+    });
+} else {
+  alert('error');
 }
   </script>
 </body>
