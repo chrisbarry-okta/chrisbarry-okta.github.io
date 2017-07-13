@@ -18,20 +18,7 @@
   <!-- Script to init the widget -->
 
   <script>
-    if (signIn.token.hasTokensInUrl()) {
-      signIn.token.parseTokensFromUrl(
-        function success(res) {
-          signIn.tokenManager.add('my_id_token', res);
-          //res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
-          //alert('success: ' + res.idToken.toString());
-          location.href = 'https://cbarry.oktapreview.com/app/UserHome';
-        },
-        function error(err) {
-          alert(err);
-        }
-      );
-    }  
-    
+ 
     var signIn = new OktaSignIn({
       baseUrl: 'https://cbarry.oktapreview.com',
       clientId: '0oab5zg1ti2fxTenY0h7',
@@ -49,8 +36,21 @@
         }
       ]
     });
- 
 
+    if (signIn.token.hasTokensInUrl()) {
+      signIn.token.parseTokensFromUrl(
+        function success(res) {
+          signIn.tokenManager.add('my_id_token', res);
+          //res.session.setCookieAndRedirect(baseUrl + '/app/UserHome');
+          //alert('success: ' + res.idToken.toString());
+          location.href = 'https://cbarry.oktapreview.com/app/UserHome';
+        },
+        function error(err) {
+          alert(err);
+        }
+      );
+    } 
+    
     signIn.renderEl(
       {el: '#okta-login-container'},
       function success(res) {
