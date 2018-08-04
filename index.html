@@ -38,8 +38,11 @@
         // `display: page` will initiate the OAuth2 page redirect flow
         display: 'page',
         // responseMode: 'fragment'
-      },
-      idps: [
+      }
+      ]
+    });
+<!-- 
+      ,idps: [
         {
           type: 'FACEBOOK',
           id: '0oab5f3vj3xykDIx50h7'
@@ -48,9 +51,7 @@
           type: 'GOOGLE',
           id: '0oabb1eg7o3XuhQw50h7'
         }
-      ]
-    });
-
+-->
     if (signIn.token.hasTokensInUrl()) {
       signIn.token.parseTokensFromUrl(
         function success(res) {
